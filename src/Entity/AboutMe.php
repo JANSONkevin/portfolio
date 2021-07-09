@@ -35,7 +35,7 @@ class AboutMe
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $function;
+    private $profession;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -88,14 +88,14 @@ class AboutMe
         return $this;
     }
 
-    public function getFunction(): ?string
+    public function getProfession(): ?string
     {
-        return $this->function;
+        return $this->profession;
     }
 
-    public function setFunction(string $function): self
+    public function setProfession(string $profession): self
     {
-        $this->function = $function;
+        $this->profession = $profession;
 
         return $this;
     }
