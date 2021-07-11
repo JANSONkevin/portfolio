@@ -7,7 +7,8 @@ use App\Entity\Project;
 use App\Form\ContactType;
 use App\Repository\AboutMeRepository;
 use App\Repository\ProjectRepository;
-use App\Repository\TimelineRepository;
+use App\Repository\EducationRepository;
+use App\Repository\ProfessionalExperienceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,16 +18,19 @@ class FrontController extends AbstractController
 {
     private $aboutMeRepository;
     private $projectRepository;
-    private $timelineRepository;
+    private $educationRepository;
+    private $professionalExperienceRepository;
 
     public function __construct(
         AboutMeRepository $aboutMeRepository,
         ProjectRepository $projectRepository,
-        TimelineRepository $timelineRepository
+        EducationRepository $educationRepository,
+        ProfessionalExperienceRepository $professionalExperienceRepository,
     ) {
         $this->aboutMeRepository =  $aboutMeRepository;
         $this->projectRepository =  $projectRepository;
-        $this->timelineRepository =  $timelineRepository;
+        $this->educationRepository =  $educationRepository;
+        $this->professionalExperienceRepository =  $professionalExperienceRepository;
     }
 
     #[Route('/', name: 'home')]
@@ -34,13 +38,8 @@ class FrontController extends AbstractController
     {
         return $this->render('front/index.html.twig', [
             'aboutMe' => $this->aboutMeRepository->findAll()[0],
-        ]);
-    }
-
-    #[Route('/projects', name: 'all_project')]
-    public function allProjects(): Response
-    {
-        return $this->render('front/all_projects.html.twig', [
+            'experiences' => $this->professionalExperienceRepository->findAll(),
+            'educations' => $this->educationRepository->findAll(),
             'projects' => $this->projectRepository->findAll(),
         ]);
     }
@@ -50,14 +49,6 @@ class FrontController extends AbstractController
     {
         return $this->render('front/show_project.html.twig', [
             'project' => $project,
-        ]);
-    }
-
-    #[Route('/a-propos', name: 'about_me')]
-    public function aboutMe(): Response
-    {
-        return $this->render('front/about_me.html.twig', [
-            'timeline' => $this->timelineRepository->findAll(),
         ]);
     }
 

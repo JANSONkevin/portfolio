@@ -3,10 +3,11 @@
 namespace App\DataFixtures;
 
 use App\Entity\AboutMe;
+use App\Entity\Education;
 use App\Entity\Illustration;
+use App\Entity\ProfessionalExperience;
 use App\Entity\Project;
 use App\Entity\Techno;
-use App\Entity\Timeline;
 use App\Service\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -31,16 +32,32 @@ class AppFixtures extends Fixture
             ->setEmail('contact@kevinjanson.com')
             ->setGithubLink('JANSONkevin')
             ->setDescription('Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat fugit corrupti ea repudiandae blanditiis pariatur. Sint nihil, reiciendis voluptatem dolor, dicta quod dolorum unde ea tempore mollitia cumque beatae? Repellendus!')
-            ->setAvatar('https://ibb.co/McLk4rm');
+            ->setAvatar('https://i.ibb.co/0C3ySTx/Kevin-JANSON.png');
 
         $manager->persist($aboutMe);
         
-        //Timeline
+        //Education
         $year = 2017;
         for ($i = 0; $i < 5; $i++) {
-            $timeline = new Timeline();
-            $timeline->setYear($year + $i)
-                ->setDescription($faker->paragraph(5));
+            $timeline = new Education();
+            $timeline->setStartYear($year + $i)
+                ->setEndYear($year + $i)
+                ->setDescription($faker->paragraph(5))
+                ->setTitle($faker->word())
+                ->setName($faker->word());
+
+            $manager->persist($timeline);
+        }
+
+        //ProfessionalExperience
+        $year = 2017;
+        for ($i = 0; $i < 5; $i++) {
+            $timeline = new ProfessionalExperience();
+            $timeline->setStartYear($year + $i)
+                ->setEndYear($year + $i)
+                ->setDescription($faker->paragraph(5))
+                ->setTitle($faker->word())
+                ->setName($faker->word());
 
             $manager->persist($timeline);
         }
