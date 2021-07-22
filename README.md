@@ -14,6 +14,8 @@
 ```bash
 # Install dependencies
 composer install
+# AND
+yarn install
 
 # Create DB
 php bin/console d:d:c
@@ -30,8 +32,7 @@ php bin/console d:f:l
 
 ## Usage
 
-```sh
-yarn install 
+```sh 
 yarn encore dev 
 symfony server:start
 ```
