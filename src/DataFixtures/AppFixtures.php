@@ -3,22 +3,28 @@
 namespace App\DataFixtures;
 
 use App\Entity\AboutMe;
+use App\Entity\Contributor;
 use App\Entity\Education;
 use App\Entity\Illustration;
 use App\Entity\ProfessionalExperience;
 use App\Entity\Project;
 use App\Entity\Techno;
+use App\Entity\User;
 use App\Service\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
     private $slugger;
 
-    public function __construct(Slugify $slugify)
+    private $passwordHasher;
+
+    public function __construct(Slugify $slugify, UserPasswordHasherInterface $passwordHasher)
     {
         $this->slugger = $slugify;
+        $this->passwordHasher = $passwordHasher;
     }
 
     public function load(ObjectManager $manager)
@@ -30,12 +36,12 @@ class AppFixtures extends Fixture
         $aboutMe->setTitle('Kevin Janson')
             ->setProfession('Développeur Web')
             ->setEmail('contact@kevinjanson.com')
-            ->setGithubLink('JANSONkevin')
+            ->setGithubLink('https://github.com/JANSONkevin')
             ->setDescription('Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat fugit corrupti ea repudiandae blanditiis pariatur. Sint nihil, reiciendis voluptatem dolor, dicta quod dolorum unde ea tempore mollitia cumque beatae? Repellendus!')
             ->setAvatar('https://i.ibb.co/0C3ySTx/Kevin-JANSON.png');
 
         $manager->persist($aboutMe);
-        
+
         //Education
         $year = 2017;
         for ($i = 0; $i < 5; $i++) {
@@ -84,8 +90,8 @@ class AppFixtures extends Fixture
                 ->addTechno($faker->randomElement($technosPersist))
                 ->addTechno($faker->randomElement($technosPersist))
                 ->addTechno($faker->randomElement($technosPersist))
-                ->setGithubLink($faker->domainName())
-                ->setWebsiteLink($faker->domainName())
+                ->setGithubLink($faker->url())
+                ->setWebsiteLink($faker->url())
                 ->setCreatedAt($faker->datetime())
                 ->setIllustration("https://picsum.photos/500/300");
 
@@ -100,6 +106,70 @@ class AppFixtures extends Fixture
 
             $manager->persist($project);
         }
+
+        //Contributors
+        $contributors = [
+            [
+                "name" => "hugo guillaume",
+                "website" => "",
+                "github" => "https://github.com/musosy",
+                "linkedin" => "https://www.linkedin.com/in/hugo-guillaume-53420b129/",
+            ],
+            [
+                "name" => "guillaume joulia",
+                "website" => "",
+                "github" => "https://github.com/Keisuke-Joulia",
+                "linkedin" => "https://www.linkedin.com/in/guillaume-joulia/",
+            ],
+            [
+                "name" => "mickael garatens",
+                "website" => "",
+                "github" => "https://github.com/micka260583",
+                "linkedin" => "https://www.linkedin.com/in/mickael-garatens/",
+            ],
+            [
+                "name" => "franck bouchet",
+                "website" => "",
+                "github" => "https://github.com/Franck1981-dev",
+                "linkedin" => "https://www.linkedin.com/in/franck-bouchet-585652110/",
+            ],
+            [
+                "name" => "colin mora le gac",
+                "website" => "",
+                "github" => "https://github.com/clnmlg",
+                "linkedin" => "https://www.linkedin.com/in/colin-mora-le-gac-b0077344/",
+            ],
+            [
+                "name" => "eddy rajaonarivelo",
+                "website" => "",
+                "github" => "https://github.com/eddyRAJA",
+                "linkedin" => "https://www.linkedin.com/in/eddy-rajaonarivelo",
+            ],
+            [
+                "name" => "jody gauthier",
+                "website" => "",
+                "github" => "https://github.com/Jody-G",
+                "linkedin" => "https://www.linkedin.com/in/jody-gauthier-b7a397215/",
+            ],
+        ];
+        foreach ($contributors as $contributor) {
+            $participant = new Contributor();
+            $participant->setName($contributor["name"])
+                ->setGithub($contributor["github"])
+                ->setLinkedin($contributor["linkedin"]);
+            $manager->persist($participant);
+        }
+
+        //User
+        $admin = new User();
+        $admin->setEmail('kevin.janson.pro@gmail.com');
+        $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setPassword($this->passwordHasher->hashPassword(
+            $admin,
+            'admin'
+        ));
+
+        $manager->persist($admin);
 
         $manager->flush();
     }

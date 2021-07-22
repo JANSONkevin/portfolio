@@ -23,15 +23,15 @@
 		</div>
 	</div>
 </nav> #}
-   <nav class="navbar navbar-expand-md navbar-dark sticky-top">
+   <nav class="navbar navbar-expand-md navbar-dark sticky-top" id="navbar">
         <a class="navbar-brand" href="#"></a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar">
                 <i class="fas fa-bars fa-lg"></i>
         </button>
         
         <div class="collapse navbar-collapse justify-content-center" id="myNavbar">
-            <ul class="nav nav-pills navbar-nav">
+            <ul class="nav nav-pills" id="pills-tab" role="tablist">
                 <li class="nav-item"><a class="nav-link" href="{{ path('home') }}">Accueil</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('home') }}#education">Education</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('home') }}#experience">Expérience</a></li>

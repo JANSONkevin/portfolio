@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Entity\Project;
+use App\Entity\Techno;
 use App\Form\ContactType;
 use App\Repository\AboutMeRepository;
 use App\Repository\ProjectRepository;
 use App\Repository\EducationRepository;
 use App\Repository\ProfessionalExperienceRepository;
+use App\Repository\TechnoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,17 +22,20 @@ class FrontController extends AbstractController
     private $projectRepository;
     private $educationRepository;
     private $professionalExperienceRepository;
+    private $technoRepository;
 
     public function __construct(
         AboutMeRepository $aboutMeRepository,
         ProjectRepository $projectRepository,
         EducationRepository $educationRepository,
         ProfessionalExperienceRepository $professionalExperienceRepository,
+        TechnoRepository $technoRepository,
     ) {
         $this->aboutMeRepository =  $aboutMeRepository;
         $this->projectRepository =  $projectRepository;
         $this->educationRepository =  $educationRepository;
         $this->professionalExperienceRepository =  $professionalExperienceRepository;
+        $this->technoRepository = $technoRepository;
     }
 
     #[Route('/', name: 'home')]

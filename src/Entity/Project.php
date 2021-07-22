@@ -69,10 +69,16 @@ class Project
      */
     private $gallery;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Contributor::class, mappedBy="projects")
+     */
+    private $contributors;
+
     public function __construct()
     {
         $this->technos = new ArrayCollection();
         $this->gallery = new ArrayCollection();
+        $this->contributors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -225,6 +231,33 @@ class Project
             if ($gallery->getProject() === $this) {
                 $gallery->setProject(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Contributor[]
+     */
+    public function getContributors(): Collection
+    {
+        return $this->contributors;
+    }
+
+    public function addContributor(Contributor $contributor): self
+    {
+        if (!$this->contributors->contains($contributor)) {
+            $this->contributors[] = $contributor;
+            $contributor->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContributor(Contributor $contributor): self
+    {
+        if ($this->contributors->removeElement($contributor)) {
+            $contributor->removeProject($this);
         }
 
         return $this;
