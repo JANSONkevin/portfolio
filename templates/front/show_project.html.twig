@@ -9,7 +9,7 @@
 		<h3>{{project.title}}</h3>
 		<p>{{ project.createdAt|date("d/m/Y") }}</p>
 	</div>
-	<div class="d-flex justify-content-between text-center m-5 p-5">
+	<div class="d-flex justify-content-between align-items-center text-center my-5 p-5" id="resume-project">
 		<div class="col-5">
 			{% if project.technos is not null %}
 				<table class="table">
@@ -32,11 +32,25 @@
 			<p class="mt-3">{{ project.description }}</p>
 		</div>
 		<div class="col-5 d-flex flex-column align-item-center">
-			<img class="" src="{{ project.illustration }}" alt="{{ project.title }}">
+			<img class="project-illustration" src="{{ project.illustration }}" alt="{{ project.title }}">
 			<div class="d-flex justify-content-evenly m-3 icon">
 				<a href="{{project.githubLink}}" target="_blank" class="fab fa-github fa-3x"></a>
 				<a href="{{project.websiteLink}}" target="_blank" class="fas fa-globe fa-3x"></a>
 			</div>
+		</div>
+	</div>
+	<div class="contributors p-5">
+		<h3 class="text-center" id="contributors-title">Contributeurs</h3>
+		<div class="d-flex text-center justify-content-evenly m-5" id="contributors">
+			{% for contributor in project.contributors %}
+				<div>
+						<h5>{{contributor.name}}</h5>
+						<div class="d-flex text-center justify-content-evenly">
+							<a href="{{contributor.github}}" target="_blank" class="fab fa-github fa-2x"></a>
+							<a href="{{contributor.linkedin}}" target="_blank" class="fab fa-linkedin fa-2x"></a>
+						</div>
+				</div>
+			{% endfor %}
 		</div>
 	</div>
 	<div class="carousel-container d-flex justify-content-center align-items-center">
