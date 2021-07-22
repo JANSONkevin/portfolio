@@ -375,8 +375,8 @@ section .heading h2 {
 }
 
 .carousel {
-  width: 70%;
-  max-height: 30%;
+  width: 50%;
+  max-height: 15%;
   border: #5f9ea0 5px solid;
 }
 
