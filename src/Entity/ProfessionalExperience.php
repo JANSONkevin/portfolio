@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\AboutMeRepository;
+use App\Repository\ProfessionalExperienceRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=AboutMeRepository::class)
+ * @ORM\Entity(repositoryClass=ProfessionalExperienceRepository::class)
  */
-class AboutMe
+class ProfessionalExperience
 {
     /**
      * @ORM\Id
@@ -25,22 +25,17 @@ class AboutMe
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
+    private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
-    private $githubLink;
+    private $startYear;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $profession;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $avatar;
+    private $endYear;
 
     /**
      * @ORM\Column(type="text")
@@ -64,50 +59,38 @@ class AboutMe
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getName(): ?string
     {
-        return $this->email;
+        return $this->name;
     }
 
-    public function setEmail(string $email): self
+    public function setName(string $name): self
     {
-        $this->email = $email;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getGithubLink(): ?string
+    public function getStartYear(): ?int
     {
-        return $this->githubLink;
+        return $this->startYear;
     }
 
-    public function setGithubLink(string $githubLink): self
+    public function setStartYear(int $startYear): self
     {
-        $this->githubLink = $githubLink;
+        $this->startYear = $startYear;
 
         return $this;
     }
 
-    public function getProfession(): ?string
+    public function getEndYear(): ?int
     {
-        return $this->profession;
+        return $this->endYear;
     }
 
-    public function setProfession(string $profession): self
+    public function setEndYear(?int $endYear): self
     {
-        $this->profession = $profession;
-
-        return $this;
-    }
-
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
-    }
-
-    public function setAvatar(string $avatar): self
-    {
-        $this->avatar = $avatar;
+        $this->endYear = $endYear;
 
         return $this;
     }
