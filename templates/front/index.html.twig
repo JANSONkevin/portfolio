@@ -5,101 +5,101 @@
 {% endblock %}
 
 {% block body %}
-		<section id="about" class="container-fluid">
-			<div class="d-flex justify-content-center align-items-center">
-				<div class="col-6 col-lg-4 profile-picture">
-					<img src="{{aboutMe.avatar}}" alt="Kevin Janson" class="rounded-circle" id="avatar">
+	<section id="about" class="container-fluid">
+		<div class="d-flex justify-content-center align-items-center">
+			<div class="col-6 col-lg-4 profile-picture">
+				<img src="{{aboutMe.avatar}}" alt="Kevin Janson" class="img-thumbnail" id="avatar">
+			</div>
+			<div class="heading col-6 col-lg-4">
+				<h1>{{aboutMe.title}}</h1>
+				<h3>{{aboutMe.profession}}</h3>
+				<p>{{aboutMe.description}}</p>
+				<div class="d-flex flex-column">
+					<a href="{{aboutMe.githubLink}}" target="_blank" class="fab fa-github fa-3x"></a>
+					<a href="{{ asset('build/Cv_kevin.pdf') }}" class="button1" target="_blank">Télécharger CV</a>
 				</div>
-				<div class="heading col-6 col-lg-4">
-					<h1>{{aboutMe.title}}</h1>
-					<h3>{{aboutMe.profession}}</h3>
-					<p>{{aboutMe.description}}</p>
-					<div class="d-flex flex-column">
-						<a href="{{aboutMe.githubLink}}" target="_blank" class="fab fa-github fa-3x"></a>
-						<a href="{{ asset('build/Cv_kevin.pdf') }}" class="button1" target="_blank">Télécharger CV</a>
+			</div>
+		</div>
+	</section>
+
+	<section id="education">
+		<div class="container">
+			<div class="blue-divider"></div>
+			<div class="heading">
+				<h2>Education</h2>
+			</div>
+			<div class="row">
+				{% for education in educations %}
+					<div class="col-md-6">
+						<div class="education-block">
+							<h5>{{ education.startYear }}
+								-
+								{{ education.endYear }}</h5>
+							<span class="fas fa-graduation-cap"></span>
+							<h3>{{ education.title }}</h3>
+							<h4>{{ education.name }}</h4>
+							<div class="blue-divider"></div>
+							<p>{{ education.description }}</p>
+						</div>
 					</div>
-				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+	<section id="experience">
+		<div class="container">
+			<div class="white-divider"></div>
+			<div class="heading">
+				<h2>Expérience Professionelle</h2>
+			</div>
+			<ul class="timeline">
+				{% for experience in experiences %}
+					<li>
+						<div class="timeline-badge">
+							<span class="fas fa-briefcase"></span>
+						</div>
+						{% if loop.index % 2 == 0 %}
+							<div class="timeline-panel-container-inverted">
+							{% else %}
+								<div class="timeline-panel-container">
+								{% endif %}
+								<div class="timeline-panel">
+									<div class="timeline-heading">
+										<h3>{{ experience.title }}</h3>
+										<h4>{{ experience.name }}</h4>
+										<p class="text-muted">
+											<small class="fas fa-clock"></small>
+											{{ experience.startYear }}
+											-
+											{{ experience.endYear }}</p>
+									</div>
+									<div class="timeline-body">
+										<p>{{ experience.description }}</p>
+									</div>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
 			</div>
 		</section>
 
-		<section id="education">
+		<section id="portfolio">
 			<div class="container">
-				<div class="blue-divider"></div>
+				<div class="white-divider"></div>
 				<div class="heading">
-					<h2>Education</h2>
+					<h2>Portfolio</h2>
 				</div>
 				<div class="row">
-					{% for education in educations %}
-						<div class="col-md-6">
-							<div class="education-block">
-								<h5>{{ education.startYear }}
-									-
-									{{ education.endYear }}</h5>
-								<span class="fas fa-graduation-cap"></span>
-								<h3>{{ education.title }}</h3>
-								<h4>{{ education.name }}</h4>
-								<div class="blue-divider"></div>
-								<p>{{ education.description }}</p>
-							</div>
+					{% for project in projects %}
+						<div class="col-md-4">
+							<a href="{{ path("show_project", { slug: project.slug }) }}">
+								<img class="img-thumbnail" src="{{ project.illustration }}" alt="{{ project.title }}">
+							</a>
 						</div>
 					{% endfor %}
 				</div>
 			</div>
 		</section>
-
-		<section id="experience">
-			<div class="container">
-				<div class="white-divider"></div>
-				<div class="heading">
-					<h2>Expérience Professionelle</h2>
-				</div>
-				<ul class="timeline">
-					{% for experience in experiences %}
-						<li>
-							<div class="timeline-badge">
-								<span class="fas fa-briefcase"></span>
-							</div>
-							{% if loop.index % 2 == 0 %}
-								<div class="timeline-panel-container-inverted">
-								{% else %}
-									<div class="timeline-panel-container">
-									{% endif %}
-									<div class="timeline-panel">
-										<div class="timeline-heading">
-											<h3>{{ experience.title }}</h3>
-											<h4>{{ experience.name }}</h4>
-											<p class="text-muted">
-												<small class="fas fa-clock"></small>
-												{{ experience.startYear }}
-												-
-												{{ experience.endYear }}</p>
-										</div>
-										<div class="timeline-body">
-											<p>{{ experience.description }}</p>
-										</div>
-									</div>
-								</div>
-							</li>
-						{% endfor %}
-					</ul>
-				</div>
-			</section>
-
-			<section id="portfolio">
-				<div class="container">
-					<div class="white-divider"></div>
-					<div class="heading">
-						<h2>Portfolio</h2>
-					</div>
-					<div class="row">
-						{% for project in projects %}
-							<div class="col-md-4">
-								<a href="{{ path("show_project", { slug: project.slug }) }}">
-									<img class="img-thumbnail" src="{{ project.illustration }}" alt="{{ project.title }}">
-								</a>
-							</div>
-						{% endfor %}
-					</div>
-				</div>
-			</section>
 	{% endblock %}

@@ -79,34 +79,6 @@ class AppFixtures extends Fixture
             $technosPersist[] = $new;
         }
 
-
-        //Projects
-        for ($i = 0; $i < 5; $i++) {
-            $project = new Project();
-            $project->setTitle($faker->sentence())
-                ->setSlug($this->slugger->generate($project->getTitle()))
-                ->setPitch($faker->paragraph(1))
-                ->setDescription($faker->paragraph(3))
-                ->addTechno($faker->randomElement($technosPersist))
-                ->addTechno($faker->randomElement($technosPersist))
-                ->addTechno($faker->randomElement($technosPersist))
-                ->setGithubLink($faker->url())
-                ->setWebsiteLink($faker->url())
-                ->setCreatedAt($faker->datetime())
-                ->setIllustration("https://picsum.photos/500/300");
-
-            for ($j = 0; $j < 5; $j++) {
-                $illustration = new Illustration();
-                $illustration->setImage('https://picsum.photos/500/300')
-                    ->setProject($project);
-                $manager->persist($illustration);
-
-                $project->addGallery($illustration);
-            }
-
-            $manager->persist($project);
-        }
-
         //Contributors
         $contributors = [
             [
@@ -158,7 +130,40 @@ class AppFixtures extends Fixture
                 ->setGithub($contributor["github"])
                 ->setLinkedin($contributor["linkedin"]);
             $manager->persist($participant);
+            $contributorPersist[] = $participant;
         }
+
+        //Projects
+        for ($i = 0; $i < 5; $i++) {
+            $project = new Project();
+            $project->setTitle($faker->sentence())
+                ->setSlug($this->slugger->generate($project->getTitle()))
+                ->setPitch($faker->paragraph(1))
+                ->setDescription($faker->paragraph(3))
+                ->addTechno($faker->randomElement($technosPersist))
+                ->addTechno($faker->randomElement($technosPersist))
+                ->addTechno($faker->randomElement($technosPersist))
+                ->addContributor($faker->randomElement($contributorPersist))
+                ->addContributor($faker->randomElement($contributorPersist))
+                ->addContributor($faker->randomElement($contributorPersist))
+                ->setGithubLink($faker->url())
+                ->setWebsiteLink($faker->url())
+                ->setCreatedAt($faker->datetime())
+                ->setIllustration("https://picsum.photos/500/300");
+
+            for ($j = 0; $j < 5; $j++) {
+                $illustration = new Illustration();
+                $illustration->setImage('https://picsum.photos/500/300')
+                    ->setProject($project);
+                $manager->persist($illustration);
+
+                $project->addGallery($illustration);
+            }
+
+
+            $manager->persist($project);
+        }
+
 
         //User
         $admin = new User();

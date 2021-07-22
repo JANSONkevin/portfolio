@@ -1,8 +1,8 @@
 /* GENERAL */
 body {
   font-family: "Lato", sans-serif;
-  width: 100vw;
-  height: 100vh;
+  max-width: 100vw;
+  min-height: 100vh;
 }
 h1,
 h2,
@@ -307,13 +307,27 @@ section .heading h2 {
 
 /* PROJECT SHOW ONE */
 .header-project {
-  background: #5f9ea0;
+  background-color: #5f9ea0;
+  color: #fff;
   width: 100%;
+}
+
+#resume-project {
+  color: #5f9ea0;
+  min-width: 100%;
+}
+
+.table {
+  color: #5f9ea0 !important;
+}
+
+.project-illustration {
+  border: #5f9ea0 5px solid;
 }
 
 .icon .fab {
   text-decoration: none !important;
-  color: #333;
+  color: #5f9ea0;
 }
 
 .icon .fab:hover {
@@ -322,22 +336,48 @@ section .heading h2 {
 
 .icon .fas {
   text-decoration: none !important;
-  color: #333;
+  color: #5f9ea0;
 }
 
 .icon .fas:hover {
   opacity: 0.33;
 }
 
+.contributors {
+  background-color: #5f9ea0;
+}
+
+#contributors-title {
+  color: #fff;
+}
+
+#contributors {
+  border: #fff 5px solid;
+  padding: 1rem;
+}
+
+#contributors h5 {
+  color: #fff;
+}
+
+#contributors .fab {
+  color: #fff;
+  text-decoration: none;
+}
+
+#contributors .fab:hover {
+  opacity: 0.33;
+}
+
 .carousel-container {
-  background: #5f9ea0;
+  background: #fff;
   width: 100%;
 }
 
 .carousel {
   width: 70%;
   max-height: 30%;
-  border: #fff 1px solid;
+  border: #5f9ea0 5px solid;
 }
 
 /* FOOTER */

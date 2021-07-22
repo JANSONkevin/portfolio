@@ -15,6 +15,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class FrontController extends AbstractController
 {
@@ -23,6 +25,7 @@ class FrontController extends AbstractController
     private $educationRepository;
     private $professionalExperienceRepository;
     private $technoRepository;
+    private $serializer;
 
     public function __construct(
         AboutMeRepository $aboutMeRepository,
@@ -30,12 +33,14 @@ class FrontController extends AbstractController
         EducationRepository $educationRepository,
         ProfessionalExperienceRepository $professionalExperienceRepository,
         TechnoRepository $technoRepository,
+        SerializerInterface $serializer,
     ) {
         $this->aboutMeRepository =  $aboutMeRepository;
         $this->projectRepository =  $projectRepository;
         $this->educationRepository =  $educationRepository;
         $this->professionalExperienceRepository =  $professionalExperienceRepository;
         $this->technoRepository = $technoRepository;
+        $this->serialize = $serializer;
     }
 
     #[Route('/', name: 'home')]
@@ -77,4 +82,54 @@ class FrontController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    /*
+
+    /**
+     * @Route("/search", name="search", methods={"GET"})
+     * @return Response
+     */
+
+    /*
+
+    public function search(Request $request): Response
+    {
+        $query = $request->query->get('q');
+
+        if (null !== $query) {
+            $project = $this->projectRepository->findByQuery($query);
+        }
+
+        return $this->render('front/show_project_search.html.twig', [
+            'project' => $project ?? [],
+        ]);
+    }
+
+    /**
+     * @Route("/autocomplete", name="autocomplete", methods={"GET"})
+     * @return Response
+     */
+
+     /*
+
+    public function autocomplete(Request $request): Response
+    {
+        $query = $request->query->get('q');
+        
+        if (null !== $query) {
+            $projects = $this->projectRepository->findByQuery($query);
+        } else {
+            $projects = [];
+        }
+        $json = $this->serializer->serialize(
+            $projects,
+            'json',
+            ['groups' => 'technos']
+        );
+
+        return $this->json($json, 200);
+         return new Response(
+            json_encode($projects), 
+            200
+        ); 
+    }*/
 }

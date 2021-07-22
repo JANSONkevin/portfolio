@@ -6,6 +6,7 @@ use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
@@ -61,16 +62,19 @@ class Project
 
     /**
      * @ORM\ManyToMany(targetEntity=Techno::class, inversedBy="projects")
+     * @Groups({"technos"})
      */
     private $technos;
 
     /**
      * @ORM\OneToMany(targetEntity=Illustration::class, mappedBy="project")
+     * @Groups({"gallery"})
      */
     private $gallery;
 
     /**
      * @ORM\ManyToMany(targetEntity=Contributor::class, mappedBy="projects")
+     * @Groups({"contributor"})
      */
     private $contributors;
 
