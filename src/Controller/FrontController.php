@@ -27,14 +27,14 @@ class FrontController extends AbstractController
     private $technoRepository;
     private $serializer;
 
-    public function __construct(
+    public function __construct (
         AboutMeRepository $aboutMeRepository,
         ProjectRepository $projectRepository,
         EducationRepository $educationRepository,
         ProfessionalExperienceRepository $professionalExperienceRepository,
         TechnoRepository $technoRepository,
-        SerializerInterface $serializer,
-    ) {
+        SerializerInterface $serializer
+     ) {
         $this->aboutMeRepository =  $aboutMeRepository;
         $this->projectRepository =  $projectRepository;
         $this->educationRepository =  $educationRepository;
@@ -43,7 +43,9 @@ class FrontController extends AbstractController
         $this->serialize = $serializer;
     }
 
-    #[Route('/', name: 'home')]
+    /**
+     * @Route("/", name="home")
+     */
     public function index(): Response
     {
         return $this->render('front/index.html.twig', [
@@ -54,7 +56,9 @@ class FrontController extends AbstractController
         ]);
     }
 
-    #[Route('/project/{slug}', name: 'show_project')]
+    /**
+     * @Route("/project/{slug}", name="show_project")
+     */
     public function showProject(Project $project): Response
     {
         return $this->render('front/show_project.html.twig', [
@@ -62,7 +66,9 @@ class FrontController extends AbstractController
         ]);
     }
 
-    #[Route('/contact', name: 'contact')]
+    /**
+     * @Route("/contact", name="contact")
+     */
     public function contact(Request $request): Response
     {
         $contact = new Contact;
@@ -109,7 +115,7 @@ class FrontController extends AbstractController
      * @return Response
      */
 
-     /*
+    /*
 
     public function autocomplete(Request $request): Response
     {

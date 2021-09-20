@@ -27,6 +27,11 @@ class Illustration
      */
     private $project;
 
+    public function __toString()
+    {
+        return $this->image;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
